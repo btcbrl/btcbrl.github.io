@@ -1,0 +1,30 @@
+{
+  "name": "btcbrl.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/btcbrl/btcbrl.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/btcbrl/btcbrl.github.io/issues"
+  },
+  "homepage": "https://github.com/btcbrl/btcbrl.github.io#readme",
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angular-loading-bar": "^0.8.0",
+    "angular-ui-router": "^0.2.18",
+    "angular-websocket": "^1.0.14",
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.1",
+    "gulp-browserify": "^0.5.1",
+    "gulp-sass": "^2.2.0",
+    "jquery": "^2.2.0"
+  }
+}

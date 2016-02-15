@@ -1,6 +1,5 @@
 'use strict'
 
-window.$ = window.jQuery = require('jquery');
 require( 'angular' );
 require( 'angular-ui-router' );
 require( 'angular-websocket' );
@@ -157,26 +156,20 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         $scope.start();
 
         var promise = $interval(function() {
-            $.ajax({
-                type: "GET",
-                url: "http://query.yahooapis.com/v1/public/yql",
-                jsonp: "callback",
-                dataType: "jsonp",
-                data: {
-                    q: 'select * from html where url = "http://api.bitvalor.com/v1/ticker.json"',
-                    format: 'json'
-                },
-                success: function(response) {
-                    var data = $.parseJSON(response.query.results.body);
-                    console.log(data['ticker_24h']['total']);
+            var query = 'select * from html where url = "http://api.bitvalor.com/v1/ticker.json"'
+              , url = "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(query) + "&format=json";
 
-                    $scope.ticker.data = data['ticker_24h']['total'];
+            $http.get(url).then(function(response) {
+                console.log(response);
+                var data = JSON.parse(response.data.query.results.body);
+                console.log(data);
 
-                    $scope.complete();
+                $scope.ticker.data = data['ticker_24h']['total'];
 
-                    $scope.changeBRL(false);
-                    $scope.changeBTC(false);
-                }
+                $scope.complete();
+
+                $scope.changeBRL(false);
+                $scope.changeBTC(false);
             });
         }, 15000);
 
@@ -240,27 +233,20 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         $scope.start();
 
         var promise = $interval(function() {
-            $.ajax({
-                type: "GET",
-                url: "http://query.yahooapis.com/v1/public/yql",
-                jsonp: "callback",
-                dataType: "jsonp",
-                ignoreLoadingBar: true,
-                data: {
-                    q: 'select * from html where url = "https://api.blinktrade.com/api/v1/BRL/ticker"',
-                    format: 'json'
-                },
-                success: function(response) {
-                    var data = $.parseJSON(response.query.results.body);
-                    console.log(data);
+            var query = 'select * from html where url = "https://api.blinktrade.com/api/v1/BRL/ticker"'
+              , url = "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(query) + "&format=json";
 
-                    $scope.ticker.data = data;
+            $http.get(url).then(function(response) {
+                console.log(response);
+                var data = JSON.parse(response.data.query.results.body);
+                console.log(data);
 
-                    $scope.complete();
+                $scope.ticker.data = data;
 
-                    $scope.changeBRL(false);
-                    $scope.changeBTC(false);
-                }
+                $scope.complete();
+
+                $scope.changeBRL(false);
+                $scope.changeBTC(false);
             });
         }, 15000);
 
@@ -324,27 +310,6 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         $scope.start();
 
         var promise = $interval(function() {
-            $.ajax({
-                type: "GET",
-                url: "http://query.yahooapis.com/v1/public/yql",
-                jsonp: "callback",
-                dataType: "jsonp",
-                data: {
-                    q: 'select * from html where url = "https://www.mercadobitcoin.com.br/api/ticker/"',
-                    format: 'json'
-                },
-                success: function(response) {
-                    var data = $.parseJSON(response.query.results.body);
-                    console.log(data.ticker);
-
-                    $scope.ticker.data = data.ticker;
-
-                    $scope.complete();
-
-                    $scope.changeBRL(false);
-                    $scope.changeBTC(false);
-                }
-            });
         }, 15000);
 
         $scope.$on('$destroy', function() {
@@ -407,27 +372,6 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         $scope.start();
 
         var promise = $interval(function() {
-            $.ajax({
-                type: "GET",
-                url: "http://query.yahooapis.com/v1/public/yql",
-                jsonp: "callback",
-                dataType: "jsonp",
-                data: {
-                    q: 'select * from html where url = "https://www.bitcointoyou.com/api/ticker.aspx"',
-                    format: 'json'
-                },
-                success: function(response) {
-                    var data = $.parseJSON(response.query.results.body);
-                    console.log(data.ticker);
-
-                    $scope.ticker.data = data.ticker;
-
-                    $scope.complete();
-
-                    $scope.changeBRL(false);
-                    $scope.changeBTC(false);
-                }
-            });
         }, 15000);
 
         $scope.$on('$destroy', function() {
@@ -570,41 +514,6 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         $scope.start();
 
         var promise = $interval(function() {
-            $.ajax({
-                type: "GET",
-                url: "http://query.yahooapis.com/v1/public/yql",
-                jsonp: "callback",
-                dataType: "jsonp",
-                data: {
-                    q: 'select * from html where url = "http://www.negociecoins.com.br/api/v3/btcbrl/ticker"',
-                    format: 'json'
-                },
-                success: function(response) {
-                    var data = $.parseJSON(response.query.results.body);
-                    console.log(data);
-
-                    $scope.ticker.data = data;
-
-                    $scope.complete();
-
-                    $scope.changeBRL(false);
-                    $scope.changeBTC(false);
-                }
-            });
-
-            //$http({
-            //    method: 'GET',
-            //    url: '/api/negociecoins.php',
-            //    ignoreLoadingBar: true
-            //}).then(function(ticker) {
-            //    console.log(ticker.data);
-            //    $scope.ticker.data = ticker.data;
-
-            //    $scope.complete();
-
-            //    $scope.changeBRL(false);
-            //    $scope.changeBTC(false);
-            //});
         }, 15000);
 
         $scope.$on('$destroy', function() {
