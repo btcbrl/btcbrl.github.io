@@ -155,7 +155,7 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
 
         $scope.start();
 
-        var promise = $interval(function() {
+        function getData() {
             var query = 'select * from html where url = "http://api.bitvalor.com/v1/ticker.json"'
               , url = "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(query) + "&format=json";
 
@@ -171,6 +171,12 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
                 $scope.changeBRL(false);
                 $scope.changeBTC(false);
             });
+        }
+
+        getData();
+
+        var promise = $interval(function() {
+            getData();
         }, 15000);
 
         $scope.$on('$destroy', function() {
