@@ -32,6 +32,19 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
                 url: "brl/:brl",
                 controller: "HomeCtrl"
             })
+            .state('coinbr', {
+                url: "/coinbr/",
+                templateUrl: "/app/views/index.html",
+                controller: "CoinbrCtrl"
+            })
+            .state('coinbr.btc', {
+                url: "btc/:btc",
+                controller: "CoinbrCtrl"
+            })
+            .state('coinbr.brl', {
+                url: "brl/:brl",
+                controller: "CoinbrCtrl"
+            })
             .state('foxbit', {
                 url: "/foxbit/",
                 templateUrl: "/app/views/index.html",
@@ -165,6 +178,89 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
                 console.log(data);
 
                 $scope.ticker.data = data['ticker_24h']['total'];
+
+                $scope.complete();
+
+                $scope.changeBRL(false);
+                $scope.changeBTC(false);
+            });
+        }
+
+        getData();
+
+        var promise = $interval(function() {
+            getData();
+        }, 15000);
+
+        $scope.$on('$destroy', function() {
+            $interval.cancel(promise);
+        });
+    })
+
+    .controller("CoinbrCtrl", function($scope, $state, $http, $interval, cfpLoadingBar) {
+        console.log('coinBR');
+        $scope.title = 'coinBR';
+        $scope.ticker = {};
+        $scope.btc = 1;
+        if ($state.params.brl > 0) {
+            $scope.brl = parseFloat($state.params.brl);
+        }
+        if ($state.params.btc > 0) {
+            $scope.btc = parseFloat($state.params.btc);
+        }
+
+        $scope.changeBTC = function(state) {
+            var result = ($scope.btc * $scope.ticker.data.sell).toFixed(2);
+
+            if (state === undefined) {
+                state = true;
+            }
+
+            if (!isNaN(result)) {
+                $scope.brl = parseFloat(result);
+            }
+
+            if (state) {
+                $state.go('coinbr.btc', { btc : $scope.btc }, { notify: false });
+            }
+        }
+
+        $scope.changeBRL = function(state) {
+            var result = ($scope.brl / $scope.ticker.data.sell).toFixed(8);
+
+            if (state === undefined) {
+                state = true;
+            }
+
+            if (!isNaN(result)) {
+                $scope.btc = parseFloat(result);
+            }
+
+            if (state) {
+                $state.go('coinbr.brl', { brl : $scope.brl }, { notify: false });
+            }
+        }
+
+        $scope.start = function() {
+          cfpLoadingBar.start();
+        };
+
+        $scope.complete = function () {
+          cfpLoadingBar.complete();
+        }
+
+        $scope.start();
+
+        function getData() {
+            var query = 'select * from html where url = "https://www.coinbr.net/pubticker"'
+              , url = "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(query) + "&format=json";
+
+            $http.get(url).then(function(response) {
+                console.log(response);
+                var data = JSON.parse(response.data.query.results.body);
+                console.log(data);
+
+                $scope.ticker.data = data;
 
                 $scope.complete();
 
