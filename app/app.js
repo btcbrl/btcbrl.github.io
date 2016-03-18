@@ -293,7 +293,7 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         }
 
         $scope.changeBTC = function(state) {
-            var result = ($scope.btc * $scope.ticker.data.last).toFixed(2);
+            var result = ($scope.btc * $scope.ticker.data.sell).toFixed(2);
 
             if (state === undefined) {
                 state = true;
@@ -309,7 +309,7 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         }
 
         $scope.changeBRL = function(state) {
-            var result = ($scope.brl / $scope.ticker.data.last).toFixed(8);
+            var result = ($scope.brl / $scope.ticker.data.sell).toFixed(8);
 
             if (state === undefined) {
                 state = true;
@@ -376,7 +376,7 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         }
 
         $scope.changeBTC = function(state) {
-            var result = ($scope.btc * $scope.ticker.data.last).toFixed(2);
+            var result = ($scope.btc * $scope.ticker.data.sell).toFixed(2);
 
             if (state === undefined) {
                 state = true;
@@ -392,7 +392,7 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         }
 
         $scope.changeBRL = function(state) {
-            var result = ($scope.brl / $scope.ticker.data.last).toFixed(8);
+            var result = ($scope.brl / $scope.ticker.data.sell).toFixed(8);
 
             if (state === undefined) {
                 state = true;
@@ -459,7 +459,7 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         }
 
         $scope.changeBTC = function(state) {
-            var result = ($scope.btc * $scope.ticker.data.last).toFixed(2);
+            var result = ($scope.btc * $scope.ticker.data.sell).toFixed(2);
 
             if (state === undefined) {
                 state = true;
@@ -475,7 +475,7 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         }
 
         $scope.changeBRL = function(state) {
-            var result = ($scope.brl / $scope.ticker.data.last).toFixed(8);
+            var result = ($scope.brl / $scope.ticker.data.sell).toFixed(8);
 
             if (state === undefined) {
                 state = true;
@@ -542,7 +542,7 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         }
 
         $scope.changeBTC = function(state) {
-            var result = ($scope.btc * $scope.ticker.data.last).toFixed(2);
+            var result = ($scope.btc * $scope.ticker.data.bid).toFixed(2);
 
             if (state === undefined) {
                 state = true;
@@ -558,7 +558,7 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         }
 
         $scope.changeBRL = function(state) {
-            var result = ($scope.brl / $scope.ticker.data.last).toFixed(8);
+            var result = ($scope.brl / $scope.ticker.data.bid).toFixed(8);
 
             if (state === undefined) {
                 state = true;
@@ -622,7 +622,7 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         }
 
         $scope.changeBTC = function(state) {
-            var result = ($scope.btc * $scope.ticker.data.last).toFixed(2);
+            var result = ($scope.btc * $scope.ticker.data.sell).toFixed(2);
 
             if (state === undefined) {
                 state = true;
@@ -638,7 +638,7 @@ var app = angular.module( "app", ['ui.router', 'angular-websocket', 'angular-loa
         }
 
         $scope.changeBRL = function(state) {
-            var result = ($scope.brl / $scope.ticker.data.last).toFixed(8);
+            var result = ($scope.brl / $scope.ticker.data.sell).toFixed(8);
 
             if (state === undefined) {
                 state = true;
